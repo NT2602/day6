@@ -1,0 +1,85 @@
+﻿@model List<EnglishWeb.Models.Vocabulary>
+
+@{
+    ViewBag.Title = "Chi tiết Từ vựng";
+    var lesson = ViewBag.Lesson as EnglishWeb.Models.Lesson;
+}
+
+<h2>Từ vựng cho bài học</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<!-- Nút sinh từ vựng bằng AI -->
+@using (Html.BeginForm("GenerateVocabularyFromAI", "Vocabulary", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("lessonId", lesson.LessonId)
+    <button type="submit" class="btn btn-primary mb-3">
+        <i class="bi bi-stars"></i> Tạo từ vựng bằng AI
+    </button>
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Từ vựng</th>
+            <th>Định nghĩa</th>
+            <th>Ví dụ</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><strong>@item.Word</strong></td>
+                <td>@item.Definition</td>
+                <td><em>@item.Example</em></td>
+
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.WordId }, new { @class = "btn btn-sm btn-warning" }) |
+                    @Html.ActionLink("Xoá", "Delete", new { id = item.WordId }, new { @class = "btn btn-sm btn-danger" })|
+                    @using (Html.BeginForm("AddToFavorites", "Vocabulary", FormMethod.Post, new { style = "display:inline;" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("wordId", item.WordId)
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-heart"></i> Yêu thích
+                        </button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Thêm từ vựng mới", "Create", null, new { @class = "btn btn-success" }) |
+    @Html.ActionLink("Trở về danh sách bài học", "Index", "Vocabulary", null, new { @class = "btn btn-default" })
+</p>
+
+<style>
+    /* Đảm bảo tất cả text có màu trắng */
+    h2, p, th, td, strong, em, .btn, .alert, label, span, div {
+        color: #ffffff !important;
+    }
+
+    .table th {
+        color: #ffffff !important;
+    }
+
+    .table td {
+        color: #ffffff !important;
+    }
+
+
+
+    .alert {
+        color: #ffffff !important;
+    }
+</style>

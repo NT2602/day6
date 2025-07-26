@@ -1,0 +1,12 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Đảm bảo body chiếm hết chiều cao của cửa sổ trình duyệt */
+}
+
+main {
+    flex: 1; /* Cho phép phần main chiếm phần còn lại của chiều cao */
+}
+a {
+  text-decoration: none;
+}

@@ -1,0 +1,68 @@
+﻿@model List<EnglishWeb.Models.Vocabulary>
+
+@{
+    ViewBag.Title = "Từ vựng yêu thích";
+}
+
+<h2>🧠 Danh sách từ vựng yêu thích của bạn</h2>
+
+@if (!Model.Any())
+{
+    <p>Bạn chưa có từ vựng yêu thích nào.</p>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Từ vựng</th>
+                <th>Định nghĩa</th>
+                <th>Ví dụ</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><strong>@item.Word</strong></td>
+                    <td>@item.Definition</td>
+                    <td><em>@item.Example</em></td>
+
+                    <td>
+                        @using (Html.BeginForm("RemoveFromFavorites", "Vocabulary", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("wordId", item.WordId)
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-x-circle"></i> Bỏ yêu thích
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+<style>
+    /* Đảm bảo tất cả text có màu trắng */
+    h2, p, th, td, strong, em, .btn, .alert, label, span, div {
+        color: #ffffff !important;
+    }
+
+    .table th {
+        color: #ffffff !important;
+    }
+
+    .table td {
+        color: #ffffff !important;
+    }
+
+
+
+    .alert {
+        color: #ffffff !important;
+    }
+</style>

@@ -1,0 +1,37 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Đảm bảo body chiếm hết chiều cao của cửa sổ trình duyệt */
+}
+
+main {
+    flex: 1; /* Cho phép phần main chiếm phần còn lại của chiều cao */
+}
+table img {
+    width: 120px; /* Đặt chiều rộng hình ảnh trong bảng */
+    height: 120px; /* Giữ tỷ lệ khung hình */
+    object-fit: cover; /* Cắt hình ảnh nếu cần để giữ tỷ lệ */
+}
+
+.carousel-inner img {
+   
+    height: 32rem; /* Giữ tỷ lệ khung hình */
+}
+.carousel-item img {
+    width: 100%; /* Đặt chiều rộng hình ảnh trong carousel */
+    height: 285px; /* Giữ tỷ lệ khung hình */
+}
+
+.col-lg-4 icon {
+    width: 140px; /* Đặt chiều rộng cho icon */
+    height: 140px; /* Đặt chiều cao cho icon */
+    margin: 0 auto;
+}
+.icon i {
+    font-size: 140px;
+    color: #333;
+    margin: 10px;
+}
+a {
+  text-decoration: none;
+}
